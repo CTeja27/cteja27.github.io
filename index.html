@@ -58,28 +58,20 @@
         #startButton:hover {
             background-color: #ff85c0;
         }
-        /* Hide the SoundCloud player container */
-        .soundcloud-container {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
     <button id="startButton">Click Here</button>
-    <div id="message">PASTA BNA DE</div>
+    <div id="message">I am Waiting</div>
 
-    <!-- SoundCloud embed for the audio track -->
-    <div class="soundcloud-container" id="soundcloudContainer">
-        <!-- Audio element for background music -->
+    <!-- Audio element for background music -->
     <audio id="backgroundMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
-
-    </div>
 
     <script>
         const images = [
-            "https://i.imgur.com/tAbthbm.png",
-            "https://cdn.discordapp.com/attachments/764903584403030026/1299571742808739932/gegzA22OsggogAAAABJRU5ErkJggg.png?ex=671db000&is=671c5e80&hm=3ffd8f78eb0750bd0179d457dc6245555ba68151a45c077137dee296432b79ff&"
+            "https://i.imgur.com/tAbthbm.png", // First image link
+            "https://cdn.discordapp.com/attachments/764903584403030026/1299571742808739932/gegzA22OsggogAAAABJRU5ErkJggg.png?ex=671db000&is=671c5e80&hm=3ffd8f78eb0750bd0179d457dc6245555ba68151a45c077137dee296432b79ff&" // Second image link
         ];
 
         function createImage() {
@@ -96,9 +88,16 @@
         }
 
         function startAnimation() {
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('startButton').style.display = 'none';
-            document.getElementById('soundcloudContainer').style.display = 'block'; // Show the SoundCloud player
+            document.getElementById('message').style.display = 'block'; // Show the message
+            document.getElementById('startButton').style.display = 'none'; // Hide the button
+
+            // Try to play the background music if available
+            const audio = document.getElementById('backgroundMusic');
+            if (audio && audio.src) {
+                audio.play().catch(error => {
+                    console.warn('Audio playback failed:', error);
+                });
+            }
 
             // Continuously create images every 200 milliseconds
             setInterval(createImage, 200);
