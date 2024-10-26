@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feel Better Button</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="feelBetterButton">Click Me!</button>
+    <p id="message" style="margin-top: 20px; font-size: 20px;"></p>
+
+    <script>
+        document.getElementById('feelBetterButton').onclick = function() {
+            document.getElementById('message').innerText = 'Throat feel better';
+        };
+    </script>
+
+</body>
+</html>
