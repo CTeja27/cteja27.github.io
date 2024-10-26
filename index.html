@@ -3,35 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feel Better Button</title>
+    <title>Feel Better Animation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            position: relative;
+            font-family: 'Baloo 2', cursive;
+            margin: 0;
+            flex-direction: column;
         }
-        button {
+        .image {
+            position: absolute;
+            animation: move 5s infinite alternate;
+            width: 150px;
+            transition: transform 0.3s;
+        }
+        @keyframes move {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y))) scale(var(--scale));
+            }
+        }
+        #message {
+            position: absolute;
+            font-size: 48px;
+            color: #ffffff;
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        #startButton {
+            font-size: 24px;
             padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            background-color: #ff69b4;
+            color: white;
             border: none;
             border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        #startButton:hover {
+            background-color: #ff85c0;
+        }
+        /* Hide the SoundCloud player container */
+        .soundcloud-container {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-    <button id="feelBetterButton">Click Me!</button>
-    <p id="message" style="margin-top: 20px; font-size: 20px;"></p>
+    <button id="startButton">Click Here</button>
+    <div id="message">Hope your throat feels better!</div>
+
+    <!-- SoundCloud embed for the audio track -->
+    <div class="soundcloud-container" id="soundcloudContainer">
+        <iframe width="100%" height="166" 
+                scrolling="no" frameborder="no" 
+                allow="autoplay" 
+                src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/soundhelix/the-stationary-ark&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true">
+        </iframe>
+    </div>
 
     <script>
-        document.getElementById('feelBetterButton').onclick = function() {
-            document.getElementById('message').innerText = 'Throat feel better';
-        };
+        const images = [
+            "https://i.imgur.com/tAbthbm.png",
+            "https://cdn.discordapp.com/attachments/764903584403030026/1299571742808739932/gegzA22OsggogAAAABJRU5ErkJggg.png?ex=671db000&is=671c5e80&hm=3ffd8f78eb0750bd0179d457dc6245555ba68151a45c077137dee296432b79ff&"
+        ];
+
+        function createImage() {
+            const img = document.createElement('img');
+            img.src = images[Math.floor(Math.random() * images.length)];
+            img.className = 'image';
+
+            // Set random position and scale
+            img.style.setProperty('--x', Math.random() * 2 - 1);
+            img.style.setProperty('--y', Math.random() * 2 - 1);
+            img.style.setProperty('--scale', Math.random() * (1.5 - 0.8) + 0.8);
+
+            document.body.appendChild(img);
+        }
+
+        function startAnimation() {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('startButton').style.display = 'none';
+            document.getElementById('soundcloudContainer').style.display = 'block'; // Show the SoundCloud player
+
+            // Continuously create images every 200 milliseconds
+            setInterval(createImage, 200);
+        }
+
+        // Attach the startAnimation function to the button click
+        document.getElementById('startButton').addEventListener('click', startAnimation);
     </script>
 
 </body>
