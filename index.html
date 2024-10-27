@@ -3,109 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teja messages</title>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <title>Arcade Games Hub</title>
     <style>
+        /* Basic CSS for layout and styling */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            position: relative;
-            font-family: 'Baloo 2', cursive;
+            font-family: Arial, sans-serif;
             margin: 0;
-            flex-direction: column;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #f2f2f2;
         }
-        .image {
-            position: absolute;
-            animation: move 5s infinite alternate;
-            width: 150px;
-            transition: transform 0.3s;
-        }
-        @keyframes move {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y))) scale(var(--scale));
-            }
-        }
-        #message {
-            position: absolute;
-            font-size: 48px;
-            color: #ffffff;
-            z-index: 10;
+
+        header, footer {
+            background-color: #333;
             text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1, footer p {
+            margin: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 15px;
+        }
+
+        .navbar a {
+            color: #f2f2f2;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #666;
+        }
+
+        .main-content {
             padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            display: none;
         }
-        #startButton {
-            font-size: 24px;
-            padding: 10px 20px;
-            background-color: #ff69b4;
-            color: white;
-            border: none;
+
+        .games-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .game-card {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .leaderboard {
+            margin-top: 40px;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 10px;
+            border: 1px solid #555;
+            text-align: center;
+        }
+
+        .leaderboard th {
+            background-color: #333;
+        }
+
+        .leaderboard td {
+            background-color: #222;
+        }
+
+        .register-form {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .register-form input, .register-form button {
+            padding: 10px;
+            width: 80%;
+            margin: 8px 0;
             border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
-        }
-        #startButton:hover {
-            background-color: #ff85c0;
-        }
-    </style>
-</head>
-<body>
-
-    <button id="startButton">Click Here</button>
-    <div id="message">I am Waiting</div>
-
-    <!-- Audio element for background music -->
-    <audio id="backgroundMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto"></audio>
-
-    <script>
-        const images = [
-            "https://i.imgur.com/tAbthbm.png", // First image link
-            "https://cdn.discordapp.com/attachments/764903584403030026/1299571742808739932/gegzA22OsggogAAAABJRU5ErkJggg.png?ex=671db000&is=671c5e80&hm=3ffd8f78eb0750bd0179d457dc6245555ba68151a45c077137dee296432b79ff&" // Second image link
-        ];
-
-        function createImage() {
-            const img = document.createElement('img');
-            img.src = images[Math.floor(Math.random() * images.length)];
-            img.className = 'image';
-
-            // Set random position and scale
-            img.style.setProperty('--x', Math.random() * 2 - 1);
-            img.style.setProperty('--y', Math.random() * 2 - 1);
-            img.style.setProperty('--scale', Math.random() * (1.5 - 0.8) + 0.8);
-
-            document.body.appendChild(img);
-        }
-
-        function startAnimation() {
-            document.getElementById('message').style.display = 'block'; // Show the message
-            document.getElementById('startButton').style.display = 'none'; // Hide the button
-
-            // Try to play the background music if available
-            const audio = document.getElementById('backgroundMusic');
-            if (audio && audio.src) {
-                audio.play().catch(error => {
-                    console.warn('Audio playback failed:', error);
-                });
-            }
-
-            // Continuously create images every 200 milliseconds
-            setInterval(createImage, 200);
-        }
-
-        // Attach the startAnimation function to the button click
-        document.getElementById('startButton').addEventListener('click', startAnimation);
-    </script>
-
-</body>
-</html>
+            border: none
