@@ -20,10 +20,6 @@
             padding: 20px 0;
         }
 
-        header h1, footer p {
-            margin: 0;
-        }
-
         .navbar {
             display: flex;
             justify-content: space-around;
@@ -45,78 +41,38 @@
             padding: 20px;
         }
 
-        .games-gallery {
+        .game-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .tic-tac-toe, .snake-game {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        /* Tic Tac Toe styling */
+        .tic-tac-toe {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            justify-content: center;
         }
 
-        .game-card {
-            background-color: #444;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.2s;
-        }
-
-        .game-card:hover {
-            transform: scale(1.05);
-        }
-
-        .game-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .leaderboard {
-            margin-top: 40px;
-        }
-
-        .leaderboard table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .leaderboard th, .leaderboard td {
-            padding: 10px;
-            border: 1px solid #555;
-            text-align: center;
-        }
-
-        .leaderboard th {
-            background-color: #333;
-        }
-
-        .leaderboard td {
-            background-color: #222;
-        }
-
-        .register-form {
-            background-color: #444;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 400px;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .register-form input, .register-form button {
-            padding: 10px;
-            width: 80%;
-            margin: 8px 0;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .register-form button {
-            background-color: #ff5722;
-            color: #fff;
+        .tic-tac-toe button {
+            width: 100px;
+            height: 100px;
+            font-size: 2em;
             cursor: pointer;
+            background-color: #444;
+            color: #f2f2f2;
+            border: 1px solid #333;
         }
 
-        .register-form button:hover {
-            background-color: #ff3d00;
+        /* Snake game styling */
+        .snake-game canvas {
+            border: 2px solid #333;
+            background-color: #222;
         }
     </style>
 </head>
@@ -130,82 +86,166 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <a href="#home">Home</a>
-        <a href="#games">Games Gallery</a>
-        <a href="#leaderboard">Leaderboard</a>
-        <a href="#register">Register</a>
-        <a href="#contact">Contact Us</a>
+        <a href="#tic-tac-toe">Tic Tac Toe</a>
+        <a href="#snake">Snake</a>
     </nav>
 
     <!-- Main Content Section -->
     <section class="main-content" id="home">
         <h2>Discover Popular Games</h2>
         <p>Play from a wide selection of games and compete with others!</p>
-
-        <!-- Games Gallery -->
-        <div class="games-gallery" id="games">
-            <div class="game-card">
-                <img src="game1.jpg" alt="Game 1">
-                <h3>Game Title 1</h3>
-                <p>Exciting description of the game.</p>
-            </div>
-            <div class="game-card">
-                <img src="game2.jpg" alt="Game 2">
-                <h3>Game Title 2</h3>
-                <p>Exciting description of the game.</p>
-            </div>
-            <div class="game-card">
-                <img src="game3.jpg" alt="Game 3">
-                <h3>Game Title 3</h3>
-                <p>Exciting description of the game.</p>
-            </div>
-            <!-- Add more games as needed -->
-        </div>
     </section>
 
-    <!-- Leaderboard Section -->
-    <section class="leaderboard" id="leaderboard">
-        <h2>Leaderboard</h2>
-        <p>See where you stand among the top players!</p>
-        <table>
-            <tr>
-                <th>Rank</th>
-                <th>Player</th>
-                <th>Score</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Player1</td>
-                <td>2000</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Player2</td>
-                <td>1850</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Player3</td>
-                <td>1720</td>
-            </tr>
-            <!-- Add more rows as needed -->
-        </table>
+    <!-- Tic Tac Toe Game Section -->
+    <section class="game-container" id="tic-tac-toe">
+        <h2>Tic Tac Toe</h2>
+        <div class="tic-tac-toe" id="ticTacToeBoard"></div>
+        <button onclick="resetTicTacToe()">Reset Game</button>
+        <p id="ticTacToeStatus"></p>
     </section>
 
-    <!-- Registration Form Section -->
-    <section class="register-form" id="register">
-        <h2>Join Our Arcade Community</h2>
-        <p>Register to save your scores and compete in tournaments!</p>
-        <form action="#" method="post">
-            <input type="text" name="username" placeholder="Enter Username" required>
-            <input type="email" name="email" placeholder="Enter Email" required>
-            <input type="password" name="password" placeholder="Enter Password" required>
-            <button type="submit">Register</button>
-        </form>
+    <!-- Snake Game Section -->
+    <section class="game-container" id="snake">
+        <h2>Snake Game</h2>
+        <canvas id="snakeCanvas" width="400" height="400"></canvas>
+        <p>Use arrow keys to play!</p>
     </section>
 
     <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Arcade Games Hub | All Rights Reserved</p>
     </footer>
+
+    <!-- JavaScript for Tic Tac Toe -->
+    <script>
+        const ticTacToeBoard = document.getElementById('ticTacToeBoard');
+        const ticTacToeStatus = document.getElementById('ticTacToeStatus');
+        let ticTacToeCells = Array(9).fill(null);
+        let isXTurn = true;
+
+        function createTicTacToeBoard() {
+            ticTacToeBoard.innerHTML = '';
+            ticTacToeCells.forEach((cell, index) => {
+                const button = document.createElement('button');
+                button.textContent = cell || '';
+                button.onclick = () => makeMove(index);
+                ticTacToeBoard.appendChild(button);
+            });
+            updateTicTacToeStatus();
+        }
+
+        function makeMove(index) {
+            if (!ticTacToeCells[index]) {
+                ticTacToeCells[index] = isXTurn ? 'X' : 'O';
+                isXTurn = !isXTurn;
+                createTicTacToeBoard();
+                checkWin();
+            }
+        }
+
+        function checkWin() {
+            const winningCombos = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            for (const combo of winningCombos) {
+                const [a, b, c] = combo;
+                if (ticTacToeCells[a] && ticTacToeCells[a] === ticTacToeCells[b] && ticTacToeCells[a] === ticTacToeCells[c]) {
+                    ticTacToeStatus.textContent = `${ticTacToeCells[a]} wins!`;
+                    return;
+                }
+            }
+            if (ticTacToeCells.every(cell => cell)) {
+                ticTacToeStatus.textContent = "It's a draw!";
+            } else {
+                updateTicTacToeStatus();
+            }
+        }
+
+        function updateTicTacToeStatus() {
+            ticTacToeStatus.textContent = `Turn: ${isXTurn ? 'X' : 'O'}`;
+        }
+
+        function resetTicTacToe() {
+            ticTacToeCells = Array(9).fill(null);
+            isXTurn = true;
+            createTicTacToeBoard();
+        }
+
+        createTicTacToeBoard();
+    </script>
+
+    <!-- JavaScript for Snake Game -->
+    <script>
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+        const box = 20;
+        let snake = [{x: 9 * box, y: 10 * box}];
+        let direction = "RIGHT";
+        let food = {
+            x: Math.floor(Math.random() * 19) * box,
+            y: Math.floor(Math.random() * 19) * box
+        };
+        let score = 0;
+
+        document.addEventListener("keydown", setDirection);
+
+        function setDirection(event) {
+            if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
+            if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
+            if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+            if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
+        }
+
+        function drawSnake() {
+            snake.forEach((segment) => {
+                ctx.fillStyle = "lightgreen";
+                ctx.fillRect(segment.x, segment.y, box, box);
+                ctx.strokeStyle = "darkgreen";
+                ctx.strokeRect(segment.x, segment.y, box, box);
+            });
+        }
+
+        function moveSnake() {
+            let head = { x: snake[0].x, y: snake[0].y };
+            if (direction === "LEFT") head.x -= box;
+            if (direction === "UP") head.y -= box;
+            if (direction === "RIGHT") head.x += box;
+            if (direction === "DOWN") head.y += box;
+
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                food = {
+                    x: Math.floor(Math.random() * 19) * box,
+                    y: Math.floor(Math.random() * 19) * box
+                };
+            } else {
+                snake.pop();
+            }
+            
+            if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                clearInterval(game);
+                alert("Game Over! Your score: " + score);
+                location.reload();
+            }
+
+            snake.unshift(head);
+        }
+
+        function drawFood() {
+            ctx.fillStyle = "red";
+            ctx.fillRect(food.x, food.y, box, box);
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSnake();
+            drawFood();
+            moveSnake();
+        }
+
+        let game = setInterval(gameLoop, 100);
+    </script>
 </body>
 </html>
