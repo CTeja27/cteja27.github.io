@@ -46,17 +46,13 @@
             text-align: center;
         }
 
-        .tic-tac-toe, .snake-game {
-            display: inline-block;
-            margin-top: 20px;
-        }
-
         /* Tic Tac Toe styling */
         .tic-tac-toe {
             display: grid;
             grid-template-columns: repeat(3, 100px);
             gap: 10px;
             justify-content: center;
+            margin: 20px 0;
         }
 
         .tic-tac-toe button {
@@ -69,10 +65,16 @@
             border: 1px solid #333;
         }
 
-        /* Snake game styling */
-        .snake-game canvas {
-            border: 2px solid #333;
-            background-color: #222;
+        /* Rock Paper Scissors styling */
+        .rps-buttons button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #444;
+            color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -87,7 +89,7 @@
     <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#tic-tac-toe">Tic Tac Toe</a>
-        <a href="#snake">Snake</a>
+        <a href="#rock-paper-scissors">Rock, Paper, Scissors</a>
     </nav>
 
     <!-- Main Content Section -->
@@ -98,17 +100,21 @@
 
     <!-- Tic Tac Toe Game Section -->
     <section class="game-container" id="tic-tac-toe">
-        <h2>Tic Tac Toe</h2>
+        <h2>Tic Tac Toe - Two Player</h2>
         <div class="tic-tac-toe" id="ticTacToeBoard"></div>
         <button onclick="resetTicTacToe()">Reset Game</button>
         <p id="ticTacToeStatus"></p>
     </section>
 
-    <!-- Snake Game Section -->
-    <section class="game-container" id="snake">
-        <h2>Snake Game</h2>
-        <canvas id="snakeCanvas" width="400" height="400"></canvas>
-        <p>Use arrow keys to play!</p>
+    <!-- Rock Paper Scissors Game Section -->
+    <section class="game-container" id="rock-paper-scissors">
+        <h2>Rock, Paper, Scissors</h2>
+        <div class="rps-buttons">
+            <button onclick="playRPS('Rock')">Rock</button>
+            <button onclick="playRPS('Paper')">Paper</button>
+            <button onclick="playRPS('Scissors')">Scissors</button>
+        </div>
+        <p id="rpsResult"></p>
     </section>
 
     <!-- Footer Section -->
@@ -121,7 +127,7 @@
         const ticTacToeBoard = document.getElementById('ticTacToeBoard');
         const ticTacToeStatus = document.getElementById('ticTacToeStatus');
         let ticTacToeCells = Array(9).fill(null);
-        let isXTurn = true;
+        let currentPlayer = 'X';
 
         function createTicTacToeBoard() {
             ticTacToeBoard.innerHTML = '';
@@ -136,8 +142,8 @@
 
         function makeMove(index) {
             if (!ticTacToeCells[index]) {
-                ticTacToeCells[index] = isXTurn ? 'X' : 'O';
-                isXTurn = !isXTurn;
+                ticTacToeCells[index] = currentPlayer;
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
                 createTicTacToeBoard();
                 checkWin();
             }
@@ -164,88 +170,39 @@
         }
 
         function updateTicTacToeStatus() {
-            ticTacToeStatus.textContent = `Turn: ${isXTurn ? 'X' : 'O'}`;
+            ticTacToeStatus.textContent = `Turn: ${currentPlayer}`;
         }
 
         function resetTicTacToe() {
             ticTacToeCells = Array(9).fill(null);
-            isXTurn = true;
+            currentPlayer = 'X';
             createTicTacToeBoard();
         }
 
         createTicTacToeBoard();
     </script>
 
-    <!-- JavaScript for Snake Game -->
+    <!-- JavaScript for Rock Paper Scissors -->
     <script>
-        const canvas = document.getElementById('snakeCanvas');
-        const ctx = canvas.getContext('2d');
-        const box = 20;
-        let snake = [{x: 9 * box, y: 10 * box}];
-        let direction = "RIGHT";
-        let food = {
-            x: Math.floor(Math.random() * 19) * box,
-            y: Math.floor(Math.random() * 19) * box
-        };
-        let score = 0;
+        function playRPS(playerChoice) {
+            const choices = ['Rock', 'Paper', 'Scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = '';
 
-        document.addEventListener("keydown", setDirection);
-
-        function setDirection(event) {
-            if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-            if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-            if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
-            if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
-        }
-
-        function drawSnake() {
-            snake.forEach((segment) => {
-                ctx.fillStyle = "lightgreen";
-                ctx.fillRect(segment.x, segment.y, box, box);
-                ctx.strokeStyle = "darkgreen";
-                ctx.strokeRect(segment.x, segment.y, box, box);
-            });
-        }
-
-        function moveSnake() {
-            let head = { x: snake[0].x, y: snake[0].y };
-            if (direction === "LEFT") head.x -= box;
-            if (direction === "UP") head.y -= box;
-            if (direction === "RIGHT") head.x += box;
-            if (direction === "DOWN") head.y += box;
-
-            if (head.x === food.x && head.y === food.y) {
-                score++;
-                food = {
-                    x: Math.floor(Math.random() * 19) * box,
-                    y: Math.floor(Math.random() * 19) * box
-                };
+            if (playerChoice === computerChoice) {
+                result = `It's a tie! Both chose ${playerChoice}.`;
+            } else if (
+                (playerChoice === 'Rock' && computerChoice === 'Scissors') ||
+                (playerChoice === 'Paper' && computerChoice === 'Rock') ||
+                (playerChoice === 'Scissors' && computerChoice === 'Paper')
+            ) {
+                result = `You win! ${playerChoice} beats ${computerChoice}.`;
             } else {
-                snake.pop();
-            }
-            
-            if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height || snake.some(segment => segment.x === head.x && segment.y === head.y)) {
-                clearInterval(game);
-                alert("Game Over! Your score: " + score);
-                location.reload();
+                result = `You lose! ${computerChoice} beats ${playerChoice}.`;
             }
 
-            snake.unshift(head);
+            document.getElementById('rpsResult').textContent = result;
         }
-
-        function drawFood() {
-            ctx.fillStyle = "red";
-            ctx.fillRect(food.x, food.y, box, box);
-        }
-
-        function gameLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawSnake();
-            drawFood();
-            moveSnake();
-        }
-
-        let game = setInterval(gameLoop, 100);
     </script>
 </body>
 </html>
