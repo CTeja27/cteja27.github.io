@@ -106,4 +106,106 @@
             width: 80%;
             margin: 8px 0;
             border-radius: 5px;
-            border: none
+            border: none;
+        }
+
+        .register-form button {
+            background-color: #ff5722;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .register-form button:hover {
+            background-color: #ff3d00;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Welcome to Arcade Games Hub!</h1>
+        <p>Your ultimate destination for classic arcade games</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#games">Games Gallery</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#register">Register</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="main-content" id="home">
+        <h2>Discover Popular Games</h2>
+        <p>Play from a wide selection of games and compete with others!</p>
+
+        <!-- Games Gallery -->
+        <div class="games-gallery" id="games">
+            <div class="game-card">
+                <img src="game1.jpg" alt="Game 1">
+                <h3>Game Title 1</h3>
+                <p>Exciting description of the game.</p>
+            </div>
+            <div class="game-card">
+                <img src="game2.jpg" alt="Game 2">
+                <h3>Game Title 2</h3>
+                <p>Exciting description of the game.</p>
+            </div>
+            <div class="game-card">
+                <img src="game3.jpg" alt="Game 3">
+                <h3>Game Title 3</h3>
+                <p>Exciting description of the game.</p>
+            </div>
+            <!-- Add more games as needed -->
+        </div>
+    </section>
+
+    <!-- Leaderboard Section -->
+    <section class="leaderboard" id="leaderboard">
+        <h2>Leaderboard</h2>
+        <p>See where you stand among the top players!</p>
+        <table>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Player1</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Player2</td>
+                <td>1850</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Player3</td>
+                <td>1720</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </table>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section class="register-form" id="register">
+        <h2>Join Our Arcade Community</h2>
+        <p>Register to save your scores and compete in tournaments!</p>
+        <form action="#" method="post">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Arcade Games Hub | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
