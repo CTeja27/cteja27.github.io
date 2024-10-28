@@ -3,280 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcade Games Hub</title>
+    <title>Teja's Game Hub</title>
     <style>
-        /* Global Styling */
+        /* Reset */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: #0d1117;
-            color: #c9d1d9;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        header {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background-color: #161b22;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            color: #58a6ff;
-            margin: 0;
-        }
-
+        /* Navigation Bar */
         .navbar {
             display: flex;
-            justify-content: center;
-            background-color: #21262d;
-            padding: 15px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #0d0d0d;
+            position: fixed;
             width: 100%;
+            top: 0;
+            z-index: 1000;
         }
 
         .navbar a {
-            color: #c9d1d9;
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin: 0 10px;
-            transition: background-color 0.3s;
+            margin: 0 15px;
         }
 
         .navbar a:hover {
-            background-color: #30363d;
+            color: #ff4655;
         }
 
-        .main-content {
-            text-align: center;
-            max-width: 800px;
-            padding: 40px 20px;
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: bold;
         }
 
-        .main-content h2 {
-            font-size: 2.5em;
-            color: #58a6ff;
-            margin-bottom: 20px;
-        }
-
-        /* Game Container */
-        .game-container {
-            background-color: #21262d;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 40px auto;
-            max-width: 600px;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .game-container:hover {
-            transform: scale(1.03);
-        }
-
-        .game-container h2 {
-            font-size: 1.8em;
-            color: #58a6ff;
-            margin-bottom: 20px;
-        }
-
-        /* Tic Tac Toe Styling */
-        .tic-tac-toe {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 10px;
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            margin: 20px auto;
+            text-align: center;
+            height: 100vh;
+            background-image: url('https://source.unsplash.com/1600x900/?game'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            color: #ffffff;
         }
 
-        .tic-tac-toe button {
-            width: 100px;
-            height: 100px;
-            font-size: 2em;
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+        }
+
+        .hero-section .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-section h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .hero-section p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .hero-section .cta-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #ff4655;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            background-color: #30363d;
-            color: #c9d1d9;
-            border: 2px solid #21262d;
-            border-radius: 8px;
             transition: background-color 0.3s;
         }
 
-        .tic-tac-toe button:hover {
-            background-color: #3f434a;
+        .hero-section .cta-button:hover {
+            background-color: #e13d4c;
         }
 
-        /* Rock Paper Scissors Styling */
-        .rps-buttons {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .rps-buttons button {
-            padding: 12px 20px;
-            font-size: 1.2em;
-            background-color: #30363d;
-            color: #c9d1d9;
-            border: 2px solid #21262d;
-            border-radius: 5px;
-            transition: background-color 0.3s, transform 0.3s;
-            cursor: pointer;
-        }
-
-        .rps-buttons button:hover {
-            background-color: #3f434a;
-            transform: translateY(-2px);
-        }
-
-        footer {
-            width: 100%;
-            padding: 20px;
+        /* Latest Section */
+        .latest-section {
+            padding: 60px 40px;
             text-align: center;
-            background-color: #161b22;
-            color: #8b949e;
-            font-size: 0.9em;
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        .latest-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .latest-section p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .latest-section a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: #ff4655;
+            text-decoration: none;
+            border: 2px solid #ff4655;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .latest-section a:hover {
+            background-color: #ff4655;
+            color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>Arcade Games Hub</h1>
-        <p>Your one-stop for classic arcade games.</p>
-    </header>
 
     <!-- Navigation Bar -->
-    <nav class="navbar">
-        <a href="#home">Home</a>
-        <a href="#tic-tac-toe">Tic Tac Toe</a>
-        <a href="#rock-paper-scissors">Rock, Paper, Scissors</a>
-    </nav>
-
-    <!-- Main Content Section -->
-    <section class="main-content" id="home">
-        <h2>Welcome to Arcade Games Hub</h2>
-        <p>Enjoy a collection of timeless arcade games! Select a game from the navigation menu to start playing.</p>
-    </section>
-
-    <!-- Tic Tac Toe Game Section -->
-    <section class="game-container" id="tic-tac-toe">
-        <h2>Tic Tac Toe</h2>
-        <p>Play against a friend and see who’s the Tic Tac Toe champion! Just click on a cell to make your move.</p>
-        <div class="tic-tac-toe" id="ticTacToeBoard"></div>
-        <button onclick="resetTicTacToe()">Reset Game</button>
-        <p id="ticTacToeStatus"></p>
-    </section>
-
-    <!-- Rock Paper Scissors Game Section -->
-    <section class="game-container" id="rock-paper-scissors">
-        <h2>Rock, Paper, Scissors</h2>
-        <p>Test your luck against the computer. Choose Rock, Paper, or Scissors to begin!</p>
-        <div class="rps-buttons">
-            <button onclick="playRPS('Rock')">Rock</button>
-            <button onclick="playRPS('Paper')">Paper</button>
-            <button onclick="playRPS('Scissors')">Scissors</button>
+    <div class="navbar">
+        <div class="logo">Teja's Game Hub</div>
+        <div>
+            <a href="#game-info">Game Info</a>
+            <a href="#media">Media</a>
+            <a href="#news">News</a>
+            <a href="#support">Support</a>
+            <a href="socials.html" target="_blank">Socials</a> <!-- Opens socials.html in a new tab -->
+            <a href="#esports">Esports</a>
         </div>
-        <p id="rpsResult"></p>
+        <a href="#" class="cta-button">Play Now</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="content">
+            <h1>Teja's Game Hub</h1>
+            <p>A thrilling 5v5 tactical shooter experience</p>
+            <button class="cta-button">Play for Free</button>
+        </div>
     </section>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2024 Arcade Games Hub | Bringing back the joy of classics</p>
-    </footer>
+    <!-- Latest Section -->
+    <section class="latest-section" id="news">
+        <h2>The Latest</h2>
+        <p>Stay up-to-date with the latest news, game updates, and events. Don’t miss out on the exciting content we have in store for you.</p>
+        <a href="#">Go to News Page</a>
+    </section>
 
-    <!-- JavaScript for Tic Tac Toe -->
-    <script>
-        const ticTacToeBoard = document.getElementById('ticTacToeBoard');
-        const ticTacToeStatus = document.getElementById('ticTacToeStatus');
-        let ticTacToeCells = Array(9).fill(null);
-        let currentPlayer = 'X';
-
-        function createTicTacToeBoard() {
-            ticTacToeBoard.innerHTML = '';
-            ticTacToeCells.forEach((cell, index) => {
-                const button = document.createElement('button');
-                button.textContent = cell || '';
-                button.onclick = () => makeMove(index);
-                ticTacToeBoard.appendChild(button);
-            });
-            updateTicTacToeStatus();
-        }
-
-        function makeMove(index) {
-            if (!ticTacToeCells[index]) {
-                ticTacToeCells[index] = currentPlayer;
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                createTicTacToeBoard();
-                checkWin();
-            }
-        }
-
-        function checkWin() {
-            const winningCombos = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                [0, 4, 8], [2, 4, 6]
-            ];
-            for (const combo of winningCombos) {
-                const [a, b, c] = combo;
-                if (ticTacToeCells[a] && ticTacToeCells[a] === ticTacToeCells[b] && ticTacToeCells[a] === ticTacToeCells[c]) {
-                    ticTacToeStatus.textContent = `${ticTacToeCells[a]} wins!`;
-                    return;
-                }
-            }
-            if (ticTacToeCells.every(cell => cell)) {
-                ticTacToeStatus.textContent = "It's a draw!";
-            } else {
-                updateTicTacToeStatus();
-            }
-        }
-
-        function updateTicTacToeStatus() {
-            ticTacToeStatus.textContent = `Turn: ${currentPlayer}`;
-        }
-
-        function resetTicTacToe() {
-            ticTacToeCells = Array(9).fill(null);
-            currentPlayer = 'X';
-            createTicTacToeBoard();
-        }
-
-        createTicTacToeBoard();
-    </script>
-
-    <!-- JavaScript for Rock Paper Scissors -->
-    <script>
-        function playRPS(playerChoice) {
-            const choices = ['Rock', 'Paper', 'Scissors'];
-            const computerChoice = choices[Math.floor(Math.random() * 3)];
-            let result = '';
-
-            if (playerChoice === computerChoice)
-            {
-                result = `It's a tie! Both chose ${playerChoice}.`;
-            } else if (
-                (playerChoice === 'Rock' && computerChoice === 'Scissors') ||
-                (playerChoice === 'Paper' && computerChoice === 'Rock') ||
-                (playerChoice === 'Scissors' && computerChoice === 'Paper')
-            ) {
-                result = `You win! ${playerChoice} beats ${computerChoice}.`;
-            } else {
-                result = `You lose! ${computerChoice} beats ${playerChoice}.`;
-            }
-
-            document.getElementById('rpsResult').textContent = result;
-        }
-    </script>
 </body>
 </html>
