@@ -13,21 +13,31 @@
             padding: 20px;
         }
 
+        h1 {
+            color: #ff4655;
+        }
+
         .game-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
             flex-wrap: wrap;
+            gap: 20px;
             margin-top: 20px;
         }
 
         .game {
             width: 150px;
             padding: 20px;
-            background-color: #2e2e2e;
+            background-color: #333;
             border-radius: 8px;
             text-align: center;
             cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .game:hover {
+            transform: translateY(-5px);
+            background-color: #444;
         }
 
         .game img {
@@ -37,25 +47,47 @@
 
         .game a {
             color: #ff4655;
-            text-decoration: none;
             font-weight: bold;
+            text-decoration: none;
             display: block;
             margin-top: 10px;
         }
     </style>
 </head>
 <body>
+
     <h1>Arcade Games</h1>
     <div class="game-container">
+        <!-- Tic Tac Toe -->
         <div class="game">
-            <img src="tic-tac-toe-logo.png" alt="Tic Tac Toe">
-            <a href="tic-tac-toe.html">Tic Tac Toe</a>
+            <img src="https://via.placeholder.com/100?text=Tic+Tac+Toe" alt="Tic Tac Toe">
+            <a href="tic-tac-toe.html" target="_blank">Play Tic Tac Toe</a>
         </div>
+
+        <!-- Rock Paper Scissors -->
         <div class="game">
-            <img src="rock-paper-scissors-logo.png" alt="Rock Paper Scissors">
-            <a href="rock-paper-scissors.html">Rock Paper Scissors</a>
+            <img src="https://via.placeholder.com/100?text=Rock+Paper+Scissors" alt="Rock Paper Scissors">
+            <a href="rock-paper-scissors.html" target="_blank">Play Rock Paper Scissors</a>
         </div>
-        <!-- Add more games as needed -->
+
+        <!-- Memory Match -->
+        <div class="game">
+            <img src="https://via.placeholder.com/100?text=Memory+Match" alt="Memory Match">
+            <a href="memory-match.html" target="_blank">Play Memory Match</a>
+        </div>
+
+        <!-- Whack-a-Mole -->
+        <div class="game">
+            <img src="https://via.placeholder.com/100?text=Whack-a-Mole" alt="Whack-a-Mole">
+            <a href="whack-a-mole.html" target="_blank">Play Whack-a-Mole</a>
+        </div>
+
+        <!-- Number Guessing Game -->
+        <div class="game">
+            <img src="https://via.placeholder.com/100?text=Number+Guess" alt="Number Guessing Game">
+            <a href="number-guessing.html" target="_blank">Play Number Guessing Game</a>
+        </div>
     </div>
+
 </body>
 </html>
