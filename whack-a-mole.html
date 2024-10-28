@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack-a-Mole</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .mole {
+            background-color: #ff4655;
+            color: #ffffff;
+        }
+
+        #score {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Whack-a-Mole</h1>
+    <div class="grid" id="grid"></div>
+    <p id="score">Score: 0</p>
+
+    <script>
+        const gridElement = document.getElementById("grid");
+        const scoreElement = document.getElementById("score");
+        let score = 0;
+        let activeMole = null;
+
+        function createGrid() {
+            gridElement.innerHTML = "";
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                cell.onclick = () => whackMole(cell);
+                gridElement.appendChild(cell);
+            }
+        }
+
+        function showMole() {
+            const cells = document.querySelectorAll(".cell");
+            cells.forEach(cell => cell.classList.remove("mole"));
+            const randomIndex = Math.floor(Math.random() * 9);
+            activeMole = cells[randomIndex];
+            activeMole.classList.add("mole");
+        }
+
+        function whackMole(cell) {
+            if (cell === activeMole) {
+                score++;
+                scoreElement.textContent = `Score: ${score}`;
+                showMole();
+            }
+        }
+
+        createGrid();
+        showMole();
+        setInterval(showMole, 1000); // Move mole every 1 second
+    </script>
+
+</body>
+</html>
