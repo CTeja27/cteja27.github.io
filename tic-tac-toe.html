@@ -15,6 +15,12 @@
             color: #ffffff;
         }
 
+        .container {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
         .board {
             display: grid;
             grid-template-columns: repeat(3, 100px);
@@ -37,21 +43,52 @@
             font-size: 1.2em;
             color: #ff4655;
         }
+
+        .scorecard {
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+        }
+
+        .scorecard h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #ff4655;
+        }
+
+        .scorecard p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
 
-    <div>
-        <h1>Tic Tac Toe</h1>
-        <div class="board" id="board"></div>
-        <p id="status">Turn: X</p>
+    <div class="container">
+        <!-- Scorecard Section -->
+        <div class="scorecard">
+            <h2>Scorecard</h2>
+            <p id="playerX">Player X: 0</p>
+            <p id="playerO">Player O: 0</p>
+        </div>
+
+        <!-- Game Board Section -->
+        <div>
+            <h1>Tic Tac Toe</h1>
+            <div class="board" id="board"></div>
+            <p id="status">Turn: X</p>
+        </div>
     </div>
 
     <script>
         const boardElement = document.getElementById("board");
         const statusElement = document.getElementById("status");
+        const playerXScoreElement = document.getElementById("playerX");
+        const playerOScoreElement = document.getElementById("playerO");
+
         let board = Array(9).fill(null);
         let currentPlayer = "X";
+        let scores = { X: 0, O: 0 };
 
         function createBoard() {
             boardElement.innerHTML = "";
@@ -84,14 +121,27 @@
                 const [a, b, c] = combo;
                 if (board[a] && board[a] === board[b] && board[a] === board[c]) {
                     statusElement.textContent = `${board[a]} wins!`;
-                    board = Array(9).fill(null);
+                    scores[board[a]] += 1;
+                    updateScorecard();
+                    resetBoard();
                     return;
                 }
             }
             if (board.every(cell => cell)) {
                 statusElement.textContent = "It's a draw!";
-                board = Array(9).fill(null);
+                resetBoard();
             }
+        }
+
+        function updateScorecard() {
+            playerXScoreElement.textContent = `Player X: ${scores.X}`;
+            playerOScoreElement.textContent = `Player O: ${scores.O}`;
+        }
+
+        function resetBoard() {
+            board = Array(9).fill(null);
+            currentPlayer = "X";
+            setTimeout(createBoard, 1000);
         }
 
         createBoard();
