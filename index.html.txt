@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation Helper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Presentation Helper</h1>
+        <p>Your one-stop tool for creating and practicing amazing presentations!</p>
+    </header>
+
+    <main>
+        <section id="templates">
+            <h2>Slide Deck Templates</h2>
+            <p>Choose a template to start your presentation:</p>
+            <button onclick="downloadTemplate()">Download Template</button>
+        </section>
+
+        <section id="timer">
+            <h2>Time Management Tool</h2>
+            <p>Practice your timing with our built-in timer:</p>
+            <div id="timer-display">00:00</div>
+            <button onclick="startTimer()">Start</button>
+            <button onclick="stopTimer()">Stop</button>
+            <button onclick="resetTimer()">Reset</button>
+        </section>
+
+        <section id="tips">
+            <h2>Tips for Presentation Skills</h2>
+            <ul>
+                <li>Speak clearly and confidently.</li>
+                <li>Engage your audience with eye contact.</li>
+                <li>Practice your delivery multiple times.</li>
+                <li>Use visuals to support your key points.</li>
+            </ul>
+        </section>
+
+        <section id="practice">
+            <h2>Practice Mode</h2>
+            <p>Upload a video of your practice presentation:</p>
+            <input type="file" accept="video/*">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Presentation Helper. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

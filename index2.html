@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PitchPerfect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PitchPerfect</h1>
+        <p>Helping users to overcome thier presentation Fears</p>
+        <p>Upload your PDF file and practice with a virtual audience.</p>
+    </header>
+
+    <main>
+ <section id="upload-section">
+    <h2>Upload Your PDF</h2>
+    <input type="file" id="file-input" accept="application/pdf">
+    <div id="prebuilt-section">
+        <label for="prebuilt-pdfs">Or Select a Pre-Built PDF:</label>
+       <select id="prebuilt-pdfs" onchange="loadPrebuiltPDF()">
+    <option value="">-- Select a PDF --</option>
+    <option value="pdfs/SamplePDF.pdf">Sample PDF 1</option>
+    <option value="pdfs/SamplePDF2.pdf">Sample PDF 2</option>
+    <option value="pdfs/SamplePDF3.pdf">Sample PDF 3</option>
+</select>
+
+
+    </div>
+</section>
+
+
+    <div id="presentation-container">
+        <section id="presentation">
+    <div id="timer-container">00:00</div>
+    <canvas id="pdf-canvas"></canvas>
+</section>
+
+<section id="audience">
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1313747734146060359/giphy.gif?ex=67533cac&is=6751eb2c&hm=53ad4d9ba92aaaec165d76df724313e98733711bc879fc82c072938e35558deb&" alt="Audience Member 1">
+        <div class="audience-name">John</div>
+    </div>
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1313757219828793435/giphy_1.gif?ex=67534581&is=6751f401&hm=240d13422b86b6c5e449d5d20abceb5a0f458b64923017479efadccd82d17c11&" alt="Audience Member 2">
+        <div class="audience-name">Emily</div>
+    </div>
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1314392204646551552/yogscast-breeh.gif?ex=67539aa1&is=67524921&hm=b7076e90a77c96441a6aa0b3de06c816b3d1873812cdb2d824d747093e14dd27&" alt="Audience Member 3">
+        <div class="audience-name">Michael</div>
+    </div>
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1314393302078062612/thinking-anthony-alfredo.gif?ex=67539ba7&is=67524a27&hm=d552950c654b3ebfdf4a5f0d9a209607515ae425b862b5c3293bf695b7da1fa9&" alt="Audience Member 4">
+        <div class="audience-name">Sarah</div>
+    </div>
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1314393302505623573/tumblr_n5ml3qZ23L1svgzd8o1_400.gif?ex=67539ba7&is=67524a27&hm=9970506f4c34780a0d4de74ff5ecdc91d3a17770150da5aca735efa1597cc902&" alt="Audience Member 5">
+        <div class="audience-name">David</div>
+    </div>
+    <div class="audience-member">
+        <img src="https://cdn.discordapp.com/attachments/764903584403030026/1314394126476640276/thinking-qvofred.gif?ex=67539c6c&is=67524aec&hm=9708b05c8869bb73a3bca691d10b6f48bf2dc16170444c96bbf58522b11890c7&" alt="Audience Member 6">
+        <div class="audience-name">Sophia</div>
+    </div>
+</section>
+
+
+    <section id="controls">
+    <button onclick="prevPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+    <button onclick="startTimer()">Start Timer</button>
+    <button onclick="stopTimer()">Stop Timer</button>
+    <button onclick="resetTimer()">Reset Timer</button>
+    <div id="time-limit-container">
+        <label for="time-limit">Set Time Limit (Minutes):</label>
+        <select id="time-limit">
+            <option value="0">No Limit</option>
+            <option value="1">1 Minute</option>
+            <option value="2">2 Minutes</option>
+            <option value="3">3 Minutes</option>
+            <option value="5">5 Minutes</option>
+            <option value="10">10 Minutes</option>
+            <option value="15">15 Minutes</option>
+            <option value="20">20 Minutes</option>
+        </select>
+    </div>
+    <div id="alert-message" style="display: none;">Time's Up!</div>
+
+</section>
+
+
+</main>
+
+    <footer>
+        <p></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
