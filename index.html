@@ -1,176 +1,344 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teja's Game Hub</title>
-    <style>
-        /* Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Navigation Bar */
-        .navbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 40px;
-            background-color: #0d0d0d;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .navbar a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            margin: 0 15px;
-        }
-
-        .navbar a:hover {
-            color: #ff4655;
-        }
-
-        .navbar .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: 100vh;
-            background-image: url('https://cdn.discordapp.com/attachments/764903584403030026/1300297756577107968/DALLE_2024-10-27_21.18.52_-_A_dark-themed_header_image_for_a_gaming_website_with_a_black_and_red_color_scheme._The_background_is_a_textured_black_with_subtle_red_glowing_highligh.webp?ex=67205427&is=671f02a7&hm=8b6eb1c94033ffa6f3b9ae1efdc615937e2067e5e3dd45a444480a809e8d4a53&'); /* Replace with your image URL */
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            color: #ffffff;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
-        }
-
-        .hero-section .content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-section h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-        }
-
-        .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .hero-section .cta-button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            color: #ffffff;
-            background-color: #ff4655;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .hero-section .cta-button:hover {
-            background-color: #e13d4c;
-        }
-
-        /* Latest Section */
-        .latest-section {
-            padding: 60px 40px;
-            text-align: center;
-            background-color: #f5f5f5;
-            color: #1a1a1a;
-        }
-
-        .latest-section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
-
-        .latest-section p {
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.1em;
-            color: #333;
-        }
-
-        .latest-section a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            color: #ff4655;
-            text-decoration: none;
-            border: 2px solid #ff4655;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .latest-section a:hover {
-            background-color: #ff4655;
-            color: #ffffff;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hey Jass , I'm Here</title>
+  <style>
+    :root { --rose: #f43f5e; --rose-200:#fecdd3; }
+    html, body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; color:#611826; }
+    body { background: linear-gradient(to bottom, #fff1f2, #fff0f1, #fff7ed); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 40px 16px 96px; position: relative; z-index: 1; }
+    .card { border-radius: 20px; background: rgba(255,255,255,0.85); border:1px solid rgba(225,29,72,0.25); box-shadow: 0 6px 22px rgba(0,0,0,0.06); backdrop-filter: blur(2px); }
+    .pad { padding: 24px; }
+    .btn { border-radius: 14px; padding: 12px 14px; background:#fff; border:1px solid rgba(225,29,72,0.25); cursor:pointer; }
+    .btn.ghost { background: transparent; border-color: rgba(0,0,0,0.1); }
+    .btn:hover { transform: translateY(-1px); }
+    .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 720px){ .grid2 { grid-template-columns: 1fr; } }
+    /* petals */
+    @keyframes fall { 0%{ transform: translateY(-10vh) rotate(0deg); opacity:0; } 10%{opacity:1} 100%{ transform: translateY(110vh) rotate(360deg); opacity:0.95; } }
+    .petal { position: fixed; top: 0; left: 0; z-index: 50; font-size: 22px; animation: fall linear forwards; pointer-events: none; }
+    /* overlays */
+    .overlay { position: fixed; inset: 0; display:grid; place-items:center; background: rgba(0,0,0,0.45); z-index: 60; }
+    .overlay-light { background: rgba(255,241,242,0.7); }
+    .modal { max-width: 960px; width: min(90%, 960px); border-radius: 24px; overflow: hidden; background: white; border:1px solid rgba(225,29,72,0.3); box-shadow: 0 18px 60px rgba(0,0,0,0.2); }
+    .modal.dark { background: black; color: white; }
+    /* splash */
+    .splash { position: fixed; inset: 0; display:grid; place-items:center; background:white; z-index: 70; }
+    .hide { display: none !important; }
+    .chip { display:inline-flex; gap:8px; align-items:center; padding:8px 12px; }
+    .title { margin:12px 0 0; font-size: 36px; font-weight: 800; letter-spacing: -0.5px; text-align:center; }
+    .subtitle { margin:8px auto 0; font-size:16px; max-width:720px; text-align:center; }
+    .btns { margin-top: 16px; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .foodgrid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .foodtile { text-align:center; background: rgba(253,242,248,0.5); border:1px solid rgba(236,72,153,0.35); border-radius: 16px; padding: 12px; }
+    .foodtile img { width: 100%; height: 112px; object-fit: cover; border-radius: 12px; }
+    .section-title { display:flex; align-items:center; gap:8px; margin-bottom:8px; font-weight:700; font-size:20px; }
+    .big { background: rgba(254,242,242,0.7); border-color: rgba(244,63,94,0.4); }
+    /* word find */
+    .wf-grid { display:grid; grid-template-columns: repeat(7, 36px); gap: 4px; user-select: none; }
+    .wf-cell { height:36px; width:36px; display:grid; place-items:center; border:1px solid #e5e7eb; border-radius:8px; background:white; font-size:14px; }
+    .wf-cell.active { background:#e0e7ff; }
+    .wf-badges span { display:inline-block; border:1px solid #fecaca; background:#fff; padding:4px 10px; border-radius:999px; font-size:12px; margin-right:8px; margin-bottom:8px; }
+    .wf-badges span.found { background:#ecfdf5; border-color:#86efac; }
+  </style>
 </head>
 <body>
+  <!-- Splash -->
+  <div id="splash" class="splash">
+    <div style="text-align:center;">
+      <img src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh welcome hug" style="height:256px;width:256px;object-fit:contain;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.2)" />
+      <div style="margin-top:16px;font-size:28px;font-weight:800">Welcome</div>
+    </div>
+  </div>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <div class="logo">Teja's Game Hub</div>
-        <div>
-            <a href="games.html">Games</a>
-            <a href="socials.html" target="_blank">Socials</a>
-            <a href="media.html">Media</a>
-            <a href="support.html">Support</a>
-        </div>
-        <!-- Updated to link to games.html -->
-        <a href="games.html" class="cta-button">Play Now</a>
+  <!-- Petals container -->
+  <div id="petals-root"></div>
+
+  <div class="wrap">
+    <div class="card chip">Jass • a cozy corner by Teja 🧸</div>
+    <h1 class="title">Hey Jass , I'm Here</h1>
+    <p class="subtitle">A webpage by your truly Teja</p>
+
+    <div class="btns">
+      <button id="btn-hug" class="btn">💗 BIG HUG</button>
+      <button id="btn-flowers" class="btn">🌹 Collect your flowers</button>
+      <button id="btn-travel" class="btn">📍 Travel Jandiala‑Jalandhar</button>
+      <button id="btn-laugh" class="btn ghost">😂 Click to Laugh</button>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="content">
-            <h1>Teja's Game Hub</h1>
-            <p>A thrilling 5v5 tactical shooter experience</p>
-            <!-- Updated to link to games.html -->
-            <a href="games.html" class="cta-button">Play for Free</a>
+    <!-- Back message (first, big) -->
+    <section class="card pad big" style="margin-top:24px;">
+      <div class="section-title"><span>❤️</span><span>For your back, Jass</span></div>
+      <p>Oh your back is hurting? I’ll write you a prescription: pillows, playlists, and me.</p>
+    </section>
+
+    <!-- Two side-by-side cards -->
+    <div class="grid2" style="margin-top:24px;">
+      <!-- Food (left) -->
+      <section class="card pad">
+        <div class="section-title"><span style="font-size:20px">🍮</span><span>A khala</span></div>
+        <div class="foodgrid">
+          <div class="foodtile">
+            <img src="https://reelsolutions.org/wp-content/uploads/2025/10/Tuxedo-Cake_175.jpg.webp" alt="Tuxedo Cake" />
+            <div style="margin-top:8px;font-size:13px;font-weight:600">Tuxedo Cake</div>
+          </div>
+          <div class="foodtile">
+            <img src="https://reelsolutions.org/wp-content/uploads/2025/10/OIP.webp" alt="Gulab Jamun" />
+            <div style="margin-top:8px;font-size:13px;font-weight:600">Gulab Jamun</div>
+          </div>
+          <div class="foodtile">
+            <img src="https://reelsolutions.org/wp-content/uploads/2025/10/Subway-Footlong-Cookie-FT-BLOG1123-b11dc804d2db407b994092cca8528e6b.jpg" alt="Footlong Cookie" />
+            <div style="margin-top:8px;font-size:13px;font-weight:600">Footlong Cookie</div>
+          </div>
+          <div class="foodtile">
+            <img src="https://reelsolutions.org/wp-content/uploads/2025/10/61nzp7jthL.jpg" alt="Dairy Milk Silk" />
+            <div style="margin-top:8px;font-size:13px;font-weight:600">Dairy Milk Silk</div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Latest Section -->
-    <section class="latest-section" id="news">
-        <h2>The Latest</h2>
-        <p>Stay up-to-date with the latest news, game updates, and events. Don’t miss out on the exciting content we have in store for you.</p>
-        <a href="#">Go to News Page</a>
-    </section>
+      
+      <!-- Music (right) -->
+      <section class="card pad">
+        <div class="section-title"><span style="font-size:20px">🎵</span><span>Play this song</span></div>
+        <div style="aspect-ratio:16/9;width:100%">
+          <iframe
+            title="Song"
+            src="https://www.youtube.com/embed/UqnmrIJhw80?rel=0&modestbranding=1&playsinline=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="width:100%;height:100%;border:0"
+          ></iframe>
+        </div>
+      </section>
 
+    </div>
+
+    <!-- Word-Find game -->
+    <section class="card pad" style="margin-top:24px;border-color:rgba(99,102,241,0.35)">
+      <div class="section-title"><span>🔤</span><span>Mini Word‑Find</span></div>
+      <p style="font-size:13px;color:rgba(120,53,69,0.8)">Click adjacent letters to make a hidden word. Clear if you take a wrong turn.</p>
+      <div id="wf-badges" class="wf-badges" style="margin:8px 0 8px 0;"></div>
+      <div id="wf-grid" class="wf-grid"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button id="wf-clear" class="btn" style="padding:6px 10px">Clear</button>
+        <button id="wf-new" class="btn" style="padding:6px 10px">New</button>
+        <span id="wf-msg" style="font-size:12px;color:rgba(120,53,69,0.8)"></span>
+      </div>
+    </section>
+  </div>
+
+  <!-- Hug Overlay -->
+  <div id="hug-ov" class="overlay overlay-light hide">
+    <div class="modal" style="max-width:520px; text-align:center; padding:24px; background: rgba(255,255,255,0.9)">
+      <img src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh hug" style="height:192px;width:192px;object-fit:contain;border-radius:16px;display:block;margin:0 auto" />
+      <h3 style="margin-top:12px;font-size:22px;font-weight:800">Pooh gives you hug</h3>
+      <p style="margin-top:8px;font-size:14px;color:rgba(120,53,69,0.9)">Close your eyes, breathe slow—safe and loved. 💛</p>
+    </div>
+  </div>
+
+  <!-- Travel Overlay (YouTube) -->
+  <div id="travel-ov" class="overlay hide" onclick="closeOverlay('travel-ov')">
+    <div class="modal dark" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;padding:12px 16px">
+        <h3 style="font-size:14px;font-weight:700">Jandiala‑Jalandhar</h3>
+        <span style="font-size:10px;opacity:0.8">(tap outside to close)</span>
+      </div>
+      <div style="aspect-ratio:16/9;width:100%">
+        <iframe title="Jandiala‑Jalandhar" src="https://www.youtube.com/embed/OcgHJZMI-qA?autoplay=1&mute=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Laugh Overlay (Video) -->
+  <div id="laugh-ov" class="overlay hide" onclick="closeOverlay('laugh-ov')">
+    <div class="modal dark" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;padding:12px 16px">
+        <h3 style="font-size:14px;font-weight:700">Click to Laugh</h3>
+        <span style="font-size:10px;opacity:0.8">(tap outside to close)</span>
+      </div>
+      <div style="aspect-ratio:16/9;width:100%;background:black">
+        <iframe title="Click to Laugh" src="https://www.youtube.com/embed/w0QNrO7JVMc?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Splash hide
+    setTimeout(() => { document.getElementById('splash').classList.add('hide'); }, 2800);
+
+    // Buttons
+    document.getElementById('btn-hug').addEventListener('click', () => {
+      const ov = document.getElementById('hug-ov');
+      ov.classList.remove('hide');
+      setTimeout(() => ov.classList.add('hide'), 3800);
+    });
+    document.getElementById('btn-flowers').addEventListener('click', () => { burstPetals(140); });
+    document.getElementById('btn-travel').addEventListener('click', () => openOverlay('travel-ov'));
+    document.getElementById('btn-laugh').addEventListener('click', () => {
+      openOverlay('laugh-ov');
+      const v = document.getElementById('laugh-video');
+      try { v.play().catch(()=>{}); } catch(e){}
+    });
+
+    function openOverlay(id){ document.getElementById(id).classList.remove('hide'); }
+    function closeOverlay(id){ document.getElementById(id).classList.add('hide'); }
+
+    // Petals burst
+    function burstPetals(n){
+      const root = document.getElementById('petals-root');
+      for (let i=0;i<n;i++){
+        const s = document.createElement('span');
+        s.className = 'petal';
+        s.textContent = '🌹';
+        s.style.left = (Math.random() * 100) + '%';
+        s.style.animationDuration = (6 + Math.random()*4) + 's';
+        s.style.animationDelay = (Math.random()*1.5) + 's';
+        root.appendChild(s);
+        setTimeout(() => root.removeChild(s), 7000);
+      }
+    }
+
+    // ===== Mini Word-Find (click letters) =====
+    (function wordFind(){
+      const size = 7;
+      const words = ["POOH","ROSE","PUNJAB","CAKE","JASS","TEJA"];
+      let seed = Date.now() % 1e9;
+      let chosen = [];
+      let grid = [];
+      let current = [];
+      let found = {};
+      const badgesEl = document.getElementById('wf-badges');
+      const gridEl = document.getElementById('wf-grid');
+      const msgEl = document.getElementById('wf-msg');
+      const btnClear = document.getElementById('wf-clear');
+      const btnNew = document.getElementById('wf-new');
+
+      function rand(){ seed = (seed * 1664525 + 1013904223) >>> 0; return seed; }
+
+      function pickWords(){
+        const pool = words.slice();
+        chosen = [];
+        for(let i=0;i<3 && pool.length;i++){
+          chosen.push(pool.splice(rand()%pool.length,1)[0]);
+        }
+        found = {};
+      }
+
+      function buildGrid(){
+        grid = Array.from({length:size}, () => Array.from({length:size}, () => ""));
+        const dirs = [[0,1],[1,0],[1,1],[-1,1]]; // →, ↓, ↘, ↗
+        function canPlace(w,r,c,dr,dc){
+          for(let i=0;i<w.length;i++){
+            const rr=r+dr*i, cc=c+dc*i;
+            if(rr<0||rr>=size||cc<0||cc>=size) return false;
+            const ch = grid[rr][cc];
+            if(ch && ch !== w[i]) return false;
+          }
+          return true;
+        }
+        function doPlace(w,r,c,dr,dc){ for(let i=0;i<w.length;i++){ grid[r+dr*i][c+dc*i]=w[i]; } }
+
+        chosen.forEach(w => {
+          let tries=0;
+          while(tries++<200){
+            const dir = dirs[rand()%dirs.length];
+            const r = rand()%size;
+            const c = rand()%size;
+            if(canPlace(w,r,c,dir[0],dir[1])){ doPlace(w,r,c,dir[0],dir[1]); break; }
+          }
+        });
+        for(let r=0;r<size;r++) for(let c=0;c<size;c++) if(!grid[r][c]) grid[r][c]=String.fromCharCode(65+((r*31+c*17+seed)%26));
+      }
+
+      function renderBadges(){
+        badgesEl.innerHTML="";
+        chosen.forEach(w => {
+          const span = document.createElement('span');
+          span.textContent = w;
+          span.className = found[w] ? 'found' : '';
+          badgesEl.appendChild(span);
+        });
+      }
+
+      function isAdjacent(a,b){
+        const dr = Math.abs(a.r-b.r), dc = Math.abs(a.c-b.c);
+        return dr<=1 && dc<=1 && !(dr===0&&dc===0);
+      }
+
+      function prefixesSet(){
+        const set = new Set();
+        chosen.forEach(w => { for(let i=1;i<=w.length;i++) set.add(w.slice(0,i)); });
+        return set;
+      }
+
+      function renderGrid(){
+        gridEl.innerHTML = "";
+        for(let r=0;r<size;r++){
+          for(let c=0;c<size;c++){
+            const btn = document.createElement('button');
+            btn.className = 'wf-cell';
+            btn.textContent = grid[r][c];
+            btn.addEventListener('click', () => onCellClick(r,c,btn));
+            gridEl.appendChild(btn);
+          }
+        }
+      }
+
+      function updateActive(){
+        const cells = gridEl.querySelectorAll('.wf-cell');
+        cells.forEach(el => el.classList.remove('active'));
+        current.forEach(({r,c}) => {
+          const idx = r*size + c;
+          cells[idx]?.classList.add('active');
+        });
+      }
+
+      function onCellClick(r,c,btn){
+        msgEl.textContent = "";
+        const last = current[current.length-1];
+        if(last && last.r===r && last.c===c) return;
+        if(last && !isAdjacent(last,{r,c})){
+          current = [{r,c}];
+          updateActive();
+          return;
+        }
+        const next = [...current,{r,c}];
+        const str = next.map(({r,c})=>grid[r][c]).join("");
+        const pref = prefixesSet();
+        if(!pref.has(str)){
+          current = [{r,c}];
+          updateActive();
+          msgEl.textContent = "Nope — start of a new word!";
+          return;
+        }
+        current = next;
+        updateActive();
+        if(chosen.includes(str)){
+          found[str]=true;
+          renderBadges();
+          msgEl.textContent = "Found: "+str+"!";
+          current = [];
+          updateActive();
+        }
+      }
+
+      function reset(){
+        pickWords();
+        buildGrid();
+        renderBadges();
+        renderGrid();
+        current=[];
+        msgEl.textContent="";
+      }
+
+      btnClear.addEventListener('click', ()=>{ current=[]; updateActive(); msgEl.textContent=""; });
+      btnNew.addEventListener('click', ()=>{ seed = Date.now()%1e9; reset(); });
+
+      reset();
+    })();
+  </script>
 </body>
 </html>
