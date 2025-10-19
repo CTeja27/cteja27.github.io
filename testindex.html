@@ -13,17 +13,17 @@
       h1 {
         color: #222;
       }
-      a.btn {
-        display: inline-block;
-        padding: 14px 25px;
+      button {
         background-color: #007aff;
         color: white;
+        border: none;
         border-radius: 10px;
-        text-decoration: none;
-        font-weight: 600;
+        padding: 14px 25px;
         font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
       }
-      a.btn:hover {
+      button:hover {
         background-color: #005fcc;
       }
     </style>
@@ -31,11 +31,70 @@
   <body>
     <h1>Add Reminder to Calendar 📅</h1>
 
-    <!-- 👇 Make sure reminder.ics is in the same folder or replace URL with your hosted file -->
-    <a class="btn" href="reminder.ics">Add Reminder</a>
+    <button id="addReminderBtn">Add Reminder</button>
 
     <p style="margin-top:25px;color:#555;">
-      Tap the button on iPhone Safari → Calendar will open → Tap <b>Add</b>.
+      Tap the button → Calendar will open → Tap <b>Add</b>.
     </p>
+
+    <script>
+      // Helper to format Date → ICS UTC
+      function toICSDate(d) {
+        const pad = n => String(n).padStart(2, "0");
+        return (
+          d.getUTCFullYear() +
+          pad(d.getUTCMonth() + 1) +
+          pad(d.getUTCDate()) +
+          "T" +
+          pad(d.getUTCHours()) +
+          pad(d.getUTCMinutes()) +
+          pad(d.getUTCSeconds()) +
+          "Z"
+        );
+      }
+
+      document.getElementById("addReminderBtn").addEventListener("click", () => {
+        // 🕒 Edit these lines
+        const title = "Drink water 💧";
+        const notes = "Tiny check-in reminder";
+
+        const start = new Date();
+        start.setHours(18, 0, 0, 0); // 6:00 PM local time
+        const end = new Date(start.getTime() + 30 * 60 * 1000);
+
+        const icsContent = [
+          "BEGIN:VCALENDAR",
+          "VERSION:2.0",
+          "PRODID:-//ReelSolutions//EN",
+          "CALSCALE:GREGORIAN",
+          "METHOD:PUBLISH",
+          "BEGIN:VEVENT",
+          `UID:${Date.now()}@reelsolution.org`,
+          `DTSTAMP:${toICSDate(new Date())}`,
+          `DTSTART:${toICSDate(start)}`,
+          `DTEND:${toICSDate(end)}`,
+          `SUMMARY:${title}`,
+          `DESCRIPTION:${notes}`,
+          "BEGIN:VALARM",
+          "TRIGGER:-PT15M",
+          "ACTION:DISPLAY",
+          "DESCRIPTION:Reminder",
+          "END:VALARM",
+          "END:VEVENT",
+          "END:VCALENDAR",
+        ].join("\r\n");
+
+        // Create a blob and trigger download
+        const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "reminder.ics";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      });
+    </script>
   </body>
 </html>
