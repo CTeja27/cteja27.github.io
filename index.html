@@ -58,9 +58,9 @@
   <!-- Petals container -->
   <div id="petals-root"></div>
 
-  <!-- Top bar with right-aligned button -->
+  <!-- Top bar with right-aligned water reminder -->
   <div class="topbar">
-    <a href="/drink-water" class="btn" style="padding:8px 12px;">💧 Drink water reminder</a>
+    <button id="btn-water" class="btn" style="padding:8px 12px;">💧 Drink water reminder</button>
   </div>
 
   <div class="wrap">
@@ -75,7 +75,7 @@
       <button id="btn-laugh" class="btn ghost">😂 Click to Laugh</button>
     </div>
 
-    <!-- Back message (first, big) -->
+    <!-- Back message -->
     <section class="card pad big" style="margin-top:24px;">
       <div class="section-title"><span>❤️</span><span>For your back, Jass</span></div>
       <p>Oh your back is hurting? I’ll write you a prescription: pillows, playlists, and me.</p>
@@ -112,7 +112,7 @@
         <div style="aspect-ratio:16/9;width:100%">
           <iframe
             title="Song"
-            src="https://www.youtube.com/embed/UqnmrIJhw80?rel=0&modestbranding=1&playsinline=1&autoplay=0"
+            src="https://www.youtube.com/embed/UqnmrIJhw80?rel=0&modestbranding=1&playsinline=1"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
             style="width:100%;height:100%;border:0"
@@ -201,6 +201,68 @@
         setTimeout(() => root.removeChild(s), 7000);
       }
     }
+
+    // ===== Drink Water Reminder (ICS) =====
+    function toICSDate(d) {
+      const pad = n => String(n).padStart(2, "0");
+      return (
+        d.getUTCFullYear() +
+        pad(d.getUTCMonth() + 1) +
+        pad(d.getUTCDate()) + "T" +
+        pad(d.getUTCHours()) +
+        pad(d.getUTCMinutes()) +
+        pad(d.getUTCSeconds()) + "Z"
+      );
+    }
+
+    function addDrinkWaterReminder() {
+      const title = "Drink water 💧";
+      const notes = "Tiny check-in reminder";
+
+      // Set for today 6:00 PM local; if past, schedule tomorrow
+      const start = new Date();
+      start.setHours(18, 0, 0, 0);
+      if (start.getTime() < Date.now()) start.setDate(start.getDate() + 1);
+
+      const end = new Date(start.getTime() + 30 * 60 * 1000);
+
+      const ics = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//ReelSolutions//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "BEGIN:VEVENT",
+        `UID:${Date.now()}@reelsolution.org`,
+        `DTSTAMP:${toICSDate(new Date())}`,
+        `DTSTART:${toICSDate(start)}`,
+        `DTEND:${toICSDate(end)}`,
+        `SUMMARY:${title}`,
+        `DESCRIPTION:${notes}`,
+        // To make it daily recurring, uncomment the next line:
+        // "RRULE:FREQ=DAILY;INTERVAL=1",
+        "BEGIN:VALARM",
+        "TRIGGER:-PT15M",
+        "ACTION:DISPLAY",
+        "DESCRIPTION:Reminder",
+        "END:VALARM",
+        "END:VEVENT",
+        "END:VCALENDAR",
+      ].join("\r\n");
+
+      const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "drink-water-reminder.ics";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    }
+
+    // Hook the top-right button
+    document.getElementById("btn-water")?.addEventListener("click", addDrinkWaterReminder);
 
     // ===== Mini Word-Find (click letters) =====
     (function wordFind(){
