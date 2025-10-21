@@ -50,7 +50,7 @@
   <!-- Splash -->
   <div id="splash" class="splash">
     <div style="text-align:center;">
-      <img src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh welcome hug" style="height:256px;width:256px;object-fit:contain;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.2)" />
+      <img id="splash-gif" src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh welcome hug" style="height:256px;width:256px;object-fit:contain;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.2)" />
       <div style="margin-top:16px;font-size:28px;font-weight:800">Welcome</div>
     </div>
   </div>
@@ -138,7 +138,7 @@
   <!-- Hug Overlay -->
   <div id="hug-ov" class="overlay overlay-light hide">
     <div class="modal" style="max-width:520px; text-align:center; padding:24px; background: rgba(255,255,255,0.9)">
-      <img src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh hug" style="height:192px;width:192px;object-fit:contain;border-radius:16px;display:block;margin:0 auto" />
+      <img id="hug-gif" src="https://reelsolutions.org/wp-content/uploads/2025/10/84011938246928567e5e4f9941da2bc9.gif" alt="Pooh hug" style="height:192px;width:192px;object-fit:contain;border-radius:16px;display:block;margin:0 auto" />
       <h3 style="margin-top:12px;font-size:22px;font-weight:800">Pooh gives you hug</h3>
       <p style="margin-top:8px;font-size:14px;color:rgba(120,53,69,0.9)">Close your eyes, breathe slow—safe and loved. 💛</p>
     </div>
@@ -171,13 +171,25 @@
   </div>
 
   <script>
-    // Splash hide after 2.8s
-    setTimeout(() => { document.getElementById('splash').classList.add('hide'); }, 2800);
+    // --- GIF restart helper (prevents "frozen" GIF when toggling visibility)
+    function restartGif(img){
+      if(!img) return;
+      const base = img.src.split('#')[0].split('?')[0];
+      img.src = base + (base.includes('?') ? '&' : '?') + 't=' + Date.now();
+    }
+
+    // Splash hide after 2.8s, and ensure splash GIF animates on load
+    window.addEventListener('load', () => {
+      restartGif(document.getElementById('splash-gif'));
+      setTimeout(() => { document.getElementById('splash').classList.add('hide'); }, 2800);
+    });
 
     // Buttons
     document.getElementById('btn-hug').addEventListener('click', () => {
       const ov = document.getElementById('hug-ov');
       ov.classList.remove('hide');
+      // restart the GIF each time overlay opens
+      restartGif(document.getElementById('hug-gif'));
       setTimeout(() => ov.classList.add('hide'), 3800);
     });
     document.getElementById('btn-flowers').addEventListener('click', () => { burstPetals(140); });
