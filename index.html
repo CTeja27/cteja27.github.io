@@ -8,7 +8,9 @@
     :root { --rose: #f43f5e; --rose-200:#fecdd3; }
     html, body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; color:#611826; }
     body { background: linear-gradient(to bottom, #fff1f2, #fff0f1, #fff7ed); }
-    .wrap { max-width: 960px; margin: 0 auto; padding: 40px 16px 96px; position: relative; z-index: 1; }
+    /* header */
+    .topbar { display:flex; justify-content:flex-end; align-items:center; gap:12px; padding:10px 16px; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 96px; position: relative; z-index: 1; }
     .card { border-radius: 20px; background: rgba(255,255,255,0.85); border:1px solid rgba(225,29,72,0.25); box-shadow: 0 6px 22px rgba(0,0,0,0.06); backdrop-filter: blur(2px); }
     .pad { padding: 24px; }
     .btn { border-radius: 14px; padding: 12px 14px; background:#fff; border:1px solid rgba(225,29,72,0.25); cursor:pointer; }
@@ -56,6 +58,11 @@
   <!-- Petals container -->
   <div id="petals-root"></div>
 
+  <!-- Top bar with right-aligned button -->
+  <div class="topbar">
+    <a href="/drink-water" class="btn" style="padding:8px 12px;">💧 Drink water reminder</a>
+  </div>
+
   <div class="wrap">
     <div class="card chip">Jass • a cozy corner by Teja 🧸</div>
     <h1 class="title">Hey Jass , I'm Here</h1>
@@ -64,7 +71,7 @@
     <div class="btns">
       <button id="btn-hug" class="btn">💗 BIG HUG</button>
       <button id="btn-flowers" class="btn">🌹 Collect your flowers</button>
-      <button id="btn-travel" class="btn">📍 Travel Jandiala‑Jalandhar</button>
+      <button id="btn-travel" class="btn">📍 Travel Jandiala-Jalandhar</button>
       <button id="btn-laugh" class="btn ghost">😂 Click to Laugh</button>
     </div>
 
@@ -99,26 +106,24 @@
         </div>
       </section>
 
-      
       <!-- Music (right) -->
       <section class="card pad">
         <div class="section-title"><span style="font-size:20px">🎵</span><span>Play this song</span></div>
         <div style="aspect-ratio:16/9;width:100%">
           <iframe
             title="Song"
-            src="https://www.youtube.com/embed/UqnmrIJhw80?rel=0&modestbranding=1&playsinline=1"
+            src="https://www.youtube.com/embed/UqnmrIJhw80?rel=0&modestbranding=1&playsinline=1&autoplay=0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
             style="width:100%;height:100%;border:0"
           ></iframe>
         </div>
       </section>
-
     </div>
 
     <!-- Word-Find game -->
     <section class="card pad" style="margin-top:24px;border-color:rgba(99,102,241,0.35)">
-      <div class="section-title"><span>🔤</span><span>Mini Word‑Find</span></div>
+      <div class="section-title"><span>🔤</span><span>Mini Word-Find</span></div>
       <p style="font-size:13px;color:rgba(120,53,69,0.8)">Click adjacent letters to make a hidden word. Clear if you take a wrong turn.</p>
       <div id="wf-badges" class="wf-badges" style="margin:8px 0 8px 0;"></div>
       <div id="wf-grid" class="wf-grid"></div>
@@ -143,16 +148,16 @@
   <div id="travel-ov" class="overlay hide" onclick="closeOverlay('travel-ov')">
     <div class="modal dark" onclick="event.stopPropagation()">
       <div style="display:flex;justify-content:space-between;padding:12px 16px">
-        <h3 style="font-size:14px;font-weight:700">Jandiala‑Jalandhar</h3>
+        <h3 style="font-size:14px;font-weight:700">Jandiala-Jalandhar</h3>
         <span style="font-size:10px;opacity:0.8">(tap outside to close)</span>
       </div>
       <div style="aspect-ratio:16/9;width:100%">
-        <iframe title="Jandiala‑Jalandhar" src="https://www.youtube.com/embed/OcgHJZMI-qA?autoplay=1&mute=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        <iframe title="Jandiala-Jalandhar" src="https://www.youtube.com/embed/OcgHJZMI-qA?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
       </div>
     </div>
   </div>
 
-  <!-- Laugh Overlay (Video) -->
+  <!-- Laugh Overlay (YouTube) -->
   <div id="laugh-ov" class="overlay hide" onclick="closeOverlay('laugh-ov')">
     <div class="modal dark" onclick="event.stopPropagation()">
       <div style="display:flex;justify-content:space-between;padding:12px 16px">
@@ -160,13 +165,13 @@
         <span style="font-size:10px;opacity:0.8">(tap outside to close)</span>
       </div>
       <div style="aspect-ratio:16/9;width:100%;background:black">
-        <iframe title="Click to Laugh" src="https://www.youtube.com/embed/w0QNrO7JVMc?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        <iframe title="Click to Laugh" src="https://www.youtube.com/embed/w0QNrO7JVMc?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
       </div>
     </div>
   </div>
 
   <script>
-    // Splash hide
+    // Splash hide after 2.8s
     setTimeout(() => { document.getElementById('splash').classList.add('hide'); }, 2800);
 
     // Buttons
@@ -177,11 +182,7 @@
     });
     document.getElementById('btn-flowers').addEventListener('click', () => { burstPetals(140); });
     document.getElementById('btn-travel').addEventListener('click', () => openOverlay('travel-ov'));
-    document.getElementById('btn-laugh').addEventListener('click', () => {
-      openOverlay('laugh-ov');
-      const v = document.getElementById('laugh-video');
-      try { v.play().catch(()=>{}); } catch(e){}
-    });
+    document.getElementById('btn-laugh').addEventListener('click', () => openOverlay('laugh-ov'));
 
     function openOverlay(id){ document.getElementById(id).classList.remove('hide'); }
     function closeOverlay(id){ document.getElementById(id).classList.add('hide'); }
@@ -296,7 +297,7 @@
         });
       }
 
-      function onCellClick(r,c,btn){
+      function onCellClick(r,c){
         msgEl.textContent = "";
         const last = current[current.length-1];
         if(last && last.r===r && last.c===c) return;
