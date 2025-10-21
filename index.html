@@ -25,7 +25,7 @@
     .overlay { position: fixed; inset: 0; display:grid; place-items:center; background: rgba(0,0,0,0.45); z-index: 60; }
     .overlay-light { background: rgba(255,241,242,0.7); }
     .modal { max-width: 960px; width: min(90%, 960px); border-radius: 24px; overflow: hidden; background: white; border:1px solid rgba(225,29,72,0.3); box-shadow: 0 18px 60px rgba(0,0,0,0.2); }
-    .modal.dark { background: black; color: white; }
+    .modal.dark { background: #121212; color: white; }
     /* splash */
     .splash { position: fixed; inset: 0; display:grid; place-items:center; background:white; z-index: 70; }
     .hide { display: none !important; }
@@ -44,6 +44,11 @@
     .wf-cell.active { background:#e0e7ff; }
     .wf-badges span { display:inline-block; border:1px solid #fecaca; background:#fff; padding:4px 10px; border-radius:999px; font-size:12px; margin-right:8px; margin-bottom:8px; }
     .wf-badges span.found { background:#ecfdf5; border-color:#86efac; }
+    /* spotify cover tile */
+    .cover-tile { position: relative; overflow: hidden; border-radius: 16px; border:1px solid rgba(0,0,0,0.06); background: #fff; }
+    .cover-tile img { width: 100%; height: 220px; object-fit: cover; display:block; }
+    .cover-tile a { position:absolute; inset:0; text-indent:-9999px; }
+    .cover-badge { position:absolute; bottom:10px; left:10px; padding:6px 10px; border-radius:999px; background: rgba(18,18,18,0.85); color:#fff; font-size:12px; }
   </style>
 </head>
 <body>
@@ -73,6 +78,7 @@
       <button id="btn-flowers" class="btn">🌹 Collect your flowers</button>
       <button id="btn-travel" class="btn">📍 Travel Jandiala-Jalandhar</button>
       <button id="btn-laugh" class="btn ghost">😂 Click to Laugh</button>
+      <button id="btn-spotify" class="btn ghost">🎧 Spotify</button>
     </div>
 
     <!-- Back message -->
@@ -120,6 +126,19 @@
         </div>
       </section>
     </div>
+
+    <!-- Spotify cover tile (click opens playlist in new tab) -->
+    <section class="card pad" style="margin-top:24px;">
+      <div class="section-title"><span style="font-size:20px">🎧</span><span>Spotify Playlist</span></div>
+      <div class="cover-tile">
+        <img src="https://reelsolutions.org/wp-content/uploads/2025/10/Gemini_Generated_Image_vzi749vzi749vzi7.png" alt="Spotify Playlist Cover" />
+        <a href="https://open.spotify.com/playlist/2QbPy42CAKJA2s1fvlKxnN?si=cef249e1842e497e" target="_blank" rel="noopener">Open playlist</a>
+        <span class="cover-badge">Tap to open in Spotify</span>
+      </div>
+      <div style="font-size:12px;color:rgba(120,53,69,0.8);margin-top:8px">
+        Tip: Use the 🎧 Spotify button above to play inside the page.
+      </div>
+    </section>
 
     <!-- Word-Find game -->
     <section class="card pad" style="margin-top:24px;border-color:rgba(99,102,241,0.35)">
@@ -170,6 +189,21 @@
     </div>
   </div>
 
+  <!-- Spotify Overlay -->
+  <div id="spotify-ov" class="overlay hide" onclick="closeOverlay('spotify-ov')">
+    <div class="modal dark" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px">
+        <h3 style="font-size:14px;font-weight:700">Spotify Playlist</h3>
+        <span style="font-size:10px;opacity:0.8">(tap outside to close)</span>
+      </div>
+      <div style="width:100%;height:380px;background:#121212">
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2QbPy42CAKJA2s1fvlKxnN?utm_source=generator"
+          width="100%" height="100%" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
   <script>
     // --- GIF restart helper (prevents "frozen" GIF when toggling visibility)
     function restartGif(img){
@@ -195,6 +229,7 @@
     document.getElementById('btn-flowers').addEventListener('click', () => { burstPetals(140); });
     document.getElementById('btn-travel').addEventListener('click', () => openOverlay('travel-ov'));
     document.getElementById('btn-laugh').addEventListener('click', () => openOverlay('laugh-ov'));
+    document.getElementById('btn-spotify').addEventListener('click', () => openOverlay('spotify-ov'));
 
     function openOverlay(id){ document.getElementById(id).classList.remove('hide'); }
     function closeOverlay(id){ document.getElementById(id).classList.add('hide'); }
