@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Jass 🎂</title>
+
+  <!-- Kawaii / cartoon fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b0f14;
+      --bg2:#111827;
+      --txt:#e6edf3;
+      --accent:#ff5fa2;
+      --accent2:#7ee787;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow:hidden;
+      color:var(--txt);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, #2a1240 0%, transparent 60%),
+        radial-gradient(1200px 700px at 80% 30%, #0f3a53 0%, transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      font-family: "Baloo 2", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+
+    /* soft sparkles */
+    .sparkle{
+      position:absolute;
+      inset:-20%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0 2px, transparent 3px),
+        radial-gradient(circle at 70% 20%, rgba(255,255,255,.06) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.05) 0 2px, transparent 3px);
+      filter: blur(.5px);
+      animation: drift 18s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes drift{
+      0%{ transform: translateY(0px) rotate(0deg); }
+      100%{ transform: translateY(60px) rotate(8deg); }
+    }
+
+    .card{
+      position:relative;
+      width:min(900px, 95vw);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(17,24,39,.75);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 26px 22px 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+
+    .badge{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.15);
+      font-family:"Fredoka", system-ui;
+      letter-spacing:.5px;
+      font-weight:700;
+      text-transform:uppercase;
+      font-size: 12px;
+    }
+
+    .title{
+      margin: 14px 0 10px;
+      font-family:"Fredoka", system-ui;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 1.0;
+      letter-spacing: .5px;
+      text-shadow: 0 6px 0 rgba(0,0,0,.25);
+    }
+
+    .title .name{
+      background: linear-gradient(90deg, #ff6bd6, #7ee787, #66c2ff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .subtitle{
+      margin: 0 0 18px;
+      font-size: clamp(16px, 2.2vw, 22px);
+      opacity:.95;
+    }
+
+    .row{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .pooh{
+      width: min(260px, 70vw);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      background: rgba(0,0,0,.2);
+    }
+
+    .msg{
+      flex:1;
+      min-width: 260px;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+      padding: 16px 16px 14px;
+    }
+
+    .msg p{
+      margin:0 0 10px;
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .chip{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,95,162,.12);
+      font-weight: 800;
+    }
+
+    .footer{
+      margin-top: 14px;
+      opacity:.85;
+      font-size: 14px;
+    }
+
+    /* Falling flowers */
+    .petal{
+      position: fixed;
+      top: -40px;
+      left: 0px;
+      font-size: 28px;
+      will-change: transform;
+      pointer-events:none;
+      filter: drop-shadow(0 6px 6px rgba(0,0,0,.25));
+      animation: fall linear forwards;
+      opacity: .95;
+    }
+    @keyframes fall{
+      to{
+        transform: translate(var(--dx), 110vh) rotate(var(--rot));
+        opacity: .95;
+      }
+    }
+
+    /* cute corner hearts */
+    .corner{
+      position:absolute;
+      right:-30px;
+      top:-40px;
+      font-size: 140px;
+      opacity:.12;
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    button{
+      margin-top: 10px;
+      border: none;
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor:pointer;
+      background: linear-gradient(90deg, #ff5fa2, #66c2ff);
+      color:#07121c;
+      font-family:"Fredoka", system-ui;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.35);
+    }
+    button:active{ transform: translateY(1px); }
+  </style>
+</head>
+
+<body>
+  <div class="sparkle"></div>
+
+  <div class="card">
+    <div class="corner">💖</div>
+
+    <div class="badge">🎉 HAPPY BIRTHDAY MODE • 🌹 + 🤍 LILIES</div>
+
+    <h1 class="title">Happy Birthday, <span class="name">Jass</span>! 🎂✨</h1>
+    <p class="subtitle">
+      Wishing you a day full of smiles, sweet moments, and the kind of happiness that sticks around all year 💫
+    </p>
+
+    <div class="row">
+      <!-- Pooh GIF (your GitHub raw link) -->
+      <img
+        class="pooh"
+        src="https://raw.githubusercontent.com/CTeja27/cteja27.github.io/main/IMG_0708.gif"
+        alt="Pooh GIF"
+      />
+
+      <div class="msg">
+        <p>
+          Today is all about <b>you</b> — your energy, your kindness, and the way you make everything feel lighter 🌈
+        </p>
+        <p>
+          May your year be packed with good news, big wins, cozy vibes, and people who genuinely care about you 🫶
+        </p>
+
+        <div class="chips">
+          <div class="chip">🌹 Roses for you</div>
+          <div class="chip">🤍 Lilies for peace</div>
+          <div class="chip">✨ Sparkles always</div>
+          <div class="chip">🎁 Surprise moments</div>
+        </div>
+
+        <button onclick="burstFlowers()">More flowers! 🌸</button>
+        <div class="footer">— Made with good vibes only 😄</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Flower types (roses + lilies vibes)
+    const FLOWERS = ["🌹","🌹","🌹","🤍","🤍","🌸","✨"]; // more roses + some lilies/extra cute
+
+    // Create a falling flower
+    function spawnFlower() {
+      const el = document.createElement("div");
+      el.className = "petal";
+      el.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
+
+      const startX = Math.random() * window.innerWidth;
+      const drift = (Math.random() * 240 - 120) + "px";
+      const rot = (Math.random() * 720 - 360) + "deg";
+      const dur = (Math.random() * 3 + 3); // 3–6s
+      const size = Math.random() * 16 + 22; // 22–38px
+
+      el.style.left = startX + "px";
+      el.style.setProperty("--dx", drift);
+      el.style.setProperty("--rot", rot);
+      el.style.animationDuration = dur + "s";
+      el.style.fontSize = size + "px";
+
+      document.body.appendChild(el);
+
+      // cleanup
+      setTimeout(() => el.remove(), (dur * 1000) + 300);
+    }
+
+    // Start with a shower when page opens
+    function startShower() {
+      // quick initial burst
+      for (let i = 0; i < 35; i++) setTimeout(spawnFlower, i * 60);
+
+      // gentle continuous fall
+      setInterval(() => {
+        // random density
+        const count = Math.random() < 0.6 ? 1 : 2;
+        for (let i = 0; i < count; i++) spawnFlower();
+      }, 350);
+    }
+
+    // Button burst
+    function burstFlowers() {
+      for (let i = 0; i < 25; i++) setTimeout(spawnFlower, i * 40);
+    }
+
+    // go!
+    startShower();
+
+    // keep it nice on resize
+    window.addEventListener("resize", () => {});
+  </script>
+</body>
+</html>
