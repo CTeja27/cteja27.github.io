@@ -8,148 +8,120 @@
   <!-- Kawaii / cartoon fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg1:#0b0f14;
-      --bg2:#111827;
-      --txt:#e6edf3;
-      --accent:#ff5fa2;
-      --accent2:#7ee787;
+      --pink1:#ffd6e8;
+      --pink2:#ffb6d9;
+      --pink3:#ff7fbe;
+      --cream:#fff7fb;
+      --ink:#2a1430;
+      --shadow: 0 26px 80px rgba(33, 10, 30, .25);
     }
 
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       min-height:100vh;
       overflow:hidden;
-      color:var(--txt);
+      font-family:"Baloo 2", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--ink);
+
+      /* Baby pink dreamy background */
       background:
-        radial-gradient(1200px 700px at 20% 10%, #2a1240 0%, transparent 60%),
-        radial-gradient(1200px 700px at 80% 30%, #0f3a53 0%, transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      font-family: "Baloo 2", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        radial-gradient(900px 520px at 20% 10%, rgba(255,182,217,.85) 0%, transparent 60%),
+        radial-gradient(900px 520px at 80% 25%, rgba(255,214,232,.9) 0%, transparent 60%),
+        radial-gradient(900px 520px at 50% 110%, rgba(255,127,190,.45) 0%, transparent 60%),
+        linear-gradient(180deg, #fff3f9, #ffe1ef);
+
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding: 22px;
     }
 
-    /* soft sparkles */
+    /* Soft sparkles */
     .sparkle{
-      position:absolute;
+      position:fixed;
       inset:-20%;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0 2px, transparent 3px),
-        radial-gradient(circle at 70% 20%, rgba(255,255,255,.06) 0 2px, transparent 3px),
-        radial-gradient(circle at 40% 80%, rgba(255,255,255,.05) 0 2px, transparent 3px);
-      filter: blur(.5px);
-      animation: drift 18s linear infinite;
       pointer-events:none;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(255,255,255,.65) 0 2px, transparent 3px),
+        radial-gradient(circle at 55% 15%, rgba(255,255,255,.45) 0 2px, transparent 3px),
+        radial-gradient(circle at 75% 35%, rgba(255,255,255,.55) 0 2px, transparent 3px),
+        radial-gradient(circle at 30% 75%, rgba(255,255,255,.40) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,.35) 0 2px, transparent 3px);
+      filter: blur(.2px);
+      animation: drift 18s linear infinite;
     }
     @keyframes drift{
       0%{ transform: translateY(0px) rotate(0deg); }
-      100%{ transform: translateY(60px) rotate(8deg); }
+      100%{ transform: translateY(55px) rotate(6deg); }
     }
 
-    .card{
+    /* Centered popup */
+    .popup{
+      width: min(760px, 96vw);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,240,247,.94), rgba(255,247,251,.92));
+      border: 2px solid rgba(255,127,190,.35);
+      box-shadow: var(--shadow);
       position:relative;
-      width:min(900px, 95vw);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(17,24,39,.75);
-      backdrop-filter: blur(10px);
-      border-radius: 24px;
-      padding: 26px 22px 22px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.45);
       overflow:hidden;
+      text-align:center;
+
+      transform: translateY(14px) scale(.985);
+      opacity: 0;
+      animation: popIn .5s cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    @keyframes popIn{
+      to{ transform: translateY(0) scale(1); opacity: 1; }
     }
 
-    .badge{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.15);
-      font-family:"Fredoka", system-ui;
-      letter-spacing:.5px;
-      font-weight:700;
-      text-transform:uppercase;
-      font-size: 12px;
+    /* Soft blobs behind content */
+    .blob{
+      position:absolute;
+      inset:-30%;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,79,169,.16) 0 130px, transparent 131px),
+        radial-gradient(circle at 70% 20%, rgba(255,182,217,.22) 0 170px, transparent 171px),
+        radial-gradient(circle at 80% 80%, rgba(255,127,190,.14) 0 190px, transparent 191px);
+      filter: blur(12px);
+    }
+
+    .inner{
+      position:relative;
+      padding: 28px 18px 22px;
     }
 
     .title{
-      margin: 14px 0 10px;
+      margin: 6px 0 14px;
       font-family:"Fredoka", system-ui;
-      font-size: clamp(42px, 6vw, 78px);
+      font-weight: 800;
+      font-size: clamp(52px, 7vw, 90px);
       line-height: 1.0;
-      letter-spacing: .5px;
-      text-shadow: 0 6px 0 rgba(0,0,0,.25);
+      letter-spacing: .3px;
+      text-shadow: 0 7px 0 rgba(255,127,190,.22);
     }
-
-    .title .name{
-      background: linear-gradient(90deg, #ff6bd6, #7ee787, #66c2ff);
+    .name{
+      background: linear-gradient(90deg, #ff4fa9, #ff8fcb, #ff4fa9);
       -webkit-background-clip:text;
       background-clip:text;
       color: transparent;
-    }
-
-    .subtitle{
-      margin: 0 0 18px;
-      font-size: clamp(16px, 2.2vw, 22px);
-      opacity:.95;
-    }
-
-    .row{
-      display:flex;
-      gap:18px;
-      align-items:center;
-      flex-wrap:wrap;
+      filter: drop-shadow(0 6px 0 rgba(255,255,255,.22));
     }
 
     .pooh{
-      width: min(260px, 70vw);
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      background: rgba(0,0,0,.2);
-    }
-
-    .msg{
-      flex:1;
-      min-width: 260px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-      padding: 16px 16px 14px;
-    }
-
-    .msg p{
-      margin:0 0 10px;
-      font-size: 18px;
-      line-height: 1.45;
-    }
-
-    .chips{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,95,162,.12);
-      font-weight: 800;
-    }
-
-    .footer{
-      margin-top: 14px;
-      opacity:.85;
-      font-size: 14px;
+      width: min(460px, 92vw);
+      border-radius: 26px;
+      border: 2px solid rgba(255,127,190,.26);
+      background: rgba(255,255,255,.6);
+      box-shadow: 0 20px 48px rgba(33,10,30,.16);
+      display:block;
+      margin: 0 auto;
     }
 
     /* Falling flowers */
@@ -157,105 +129,53 @@
       position: fixed;
       top: -40px;
       left: 0px;
-      font-size: 28px;
+      font-size: 30px;
       will-change: transform;
       pointer-events:none;
-      filter: drop-shadow(0 6px 6px rgba(0,0,0,.25));
+      filter: drop-shadow(0 7px 8px rgba(33,10,30,.18));
       animation: fall linear forwards;
-      opacity: .95;
+      opacity: .98;
+      z-index: 50;
     }
     @keyframes fall{
       to{
         transform: translate(var(--dx), 110vh) rotate(var(--rot));
-        opacity: .95;
+        opacity: .98;
       }
     }
-
-    /* cute corner hearts */
-    .corner{
-      position:absolute;
-      right:-30px;
-      top:-40px;
-      font-size: 140px;
-      opacity:.12;
-      transform: rotate(18deg);
-      pointer-events:none;
-    }
-
-    button{
-      margin-top: 10px;
-      border: none;
-      border-radius: 14px;
-      padding: 10px 14px;
-      cursor:pointer;
-      background: linear-gradient(90deg, #ff5fa2, #66c2ff);
-      color:#07121c;
-      font-family:"Fredoka", system-ui;
-      font-weight: 800;
-      font-size: 14px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.35);
-    }
-    button:active{ transform: translateY(1px); }
   </style>
 </head>
 
 <body>
   <div class="sparkle"></div>
 
-  <div class="card">
-    <div class="corner">💖</div>
+  <div class="popup">
+    <div class="blob"></div>
+    <div class="inner">
+      <div class="title">Happy Birthday, <span class="name">Jass</span>! 🎂</div>
 
-    <div class="badge">🎉 HAPPY BIRTHDAY MODE • 🌹 + 🤍 LILIES</div>
-
-    <h1 class="title">Happy Birthday, <span class="name">Jass</span>! 🎂✨</h1>
-    <p class="subtitle">
-      Wishing you a day full of smiles, sweet moments, and the kind of happiness that sticks around all year 💫
-    </p>
-
-    <div class="row">
-      <!-- Pooh GIF (your GitHub raw link) -->
       <img
         class="pooh"
-        src="https://raw.githubusercontent.com/CTeja27/cteja27.github.io/main/IMG_0708.gif"
+        src="https://raw.githubusercontent.com/CTeja27/cteja27.github.io/874558d0d94b8c5ed713c30119adc07284b5f6d5/IMG_0708.gif"
         alt="Pooh GIF"
       />
-
-      <div class="msg">
-        <p>
-          Today is all about <b>you</b> — your energy, your kindness, and the way you make everything feel lighter 🌈
-        </p>
-        <p>
-          May your year be packed with good news, big wins, cozy vibes, and people who genuinely care about you 🫶
-        </p>
-
-        <div class="chips">
-          <div class="chip">🌹 Roses for you</div>
-          <div class="chip">🤍 Lilies for peace</div>
-          <div class="chip">✨ Sparkles always</div>
-          <div class="chip">🎁 Surprise moments</div>
-        </div>
-
-        <button onclick="burstFlowers()">More flowers! 🌸</button>
-        <div class="footer">— Made with good vibes only 😄</div>
-      </div>
     </div>
   </div>
 
   <script>
-    // Flower types (roses + lilies vibes)
-    const FLOWERS = ["🌹","🌹","🌹","🤍","🤍","🌸","✨"]; // more roses + some lilies/extra cute
+    // Only flowers (roses + lilies vibes)
+    const FLOWERS = ["🌹","🌹","🌹","🤍","🤍","🌸","🌷","💮"];
 
-    // Create a falling flower
     function spawnFlower() {
       const el = document.createElement("div");
       el.className = "petal";
       el.textContent = FLOWERS[Math.floor(Math.random() * FLOWERS.length)];
 
       const startX = Math.random() * window.innerWidth;
-      const drift = (Math.random() * 240 - 120) + "px";
+      const drift = (Math.random() * 260 - 130) + "px";
       const rot = (Math.random() * 720 - 360) + "deg";
-      const dur = (Math.random() * 3 + 3); // 3–6s
-      const size = Math.random() * 16 + 22; // 22–38px
+      const dur = (Math.random() * 3.0 + 3.2); // 3.2–6.2s
+      const size = Math.random() * 16 + 22;     // 22–38px
 
       el.style.left = startX + "px";
       el.style.setProperty("--dx", drift);
@@ -264,34 +184,21 @@
       el.style.fontSize = size + "px";
 
       document.body.appendChild(el);
-
-      // cleanup
       setTimeout(() => el.remove(), (dur * 1000) + 300);
     }
 
-    // Start with a shower when page opens
-    function startShower() {
-      // quick initial burst
-      for (let i = 0; i < 35; i++) setTimeout(spawnFlower, i * 60);
+    function startFlowerFall(){
+      // nice opening burst
+      for (let i = 0; i < 45; i++) setTimeout(spawnFlower, i * 55);
 
-      // gentle continuous fall
+      // steady fall forever
       setInterval(() => {
-        // random density
-        const count = Math.random() < 0.6 ? 1 : 2;
+        const count = Math.random() < 0.75 ? 1 : 2;
         for (let i = 0; i < count; i++) spawnFlower();
-      }, 350);
+      }, 420);
     }
 
-    // Button burst
-    function burstFlowers() {
-      for (let i = 0; i < 25; i++) setTimeout(spawnFlower, i * 40);
-    }
-
-    // go!
-    startShower();
-
-    // keep it nice on resize
-    window.addEventListener("resize", () => {});
+    startFlowerFall();
   </script>
 </body>
 </html>
